@@ -23,7 +23,17 @@ def greet():
 # Write a function named `login` which uses `GET` and `POST` methods,
 # and template files named `login.html` and `secure.html` given under `templates` folder
 # and assign to the static route of ('login'). It controls If password is clarusway or not
-
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        myname = request.form['username']
+        mypass = request.form['password']
+        if mypass == 'I-am-awesome':
+            return render_template('secure.html',user = myname.title())
+        else:
+            return render_template('login.html', user = myname.title(), control = True)
+    else:
+        return render_template('login.html', control = False)
 
 # Add a statement to run the Flask application which can be reached from any host on port 80.
 
